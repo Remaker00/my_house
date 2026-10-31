@@ -16,7 +16,7 @@ export const profile = {
   links: {
     github: "https://github.com/Remaker00",
     linkedin: "https://www.linkedin.com/in/nishant-sourav-bb5b02269/",
-    source: "https://github.com/Remaker00/nishant-house",
+    source: "https://github.com/Remaker00/my_house",
   },
 } as const;
 
