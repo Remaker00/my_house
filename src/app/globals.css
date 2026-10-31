@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  /* Night: the page is the sky, words are cream, accents are lamp-light amber. "paper" is the notebook's navy and
+     "ink" the cream text on it (names kept from the paper-and-ink version so classes read the same). */
+  --sky-top: #060a1c;
+  --sky-low: #1a2452;
+  --paper: #0e1430;
+  --ink: #f3e6cf;
+  --glow: #ffc46b;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-glow: var(--glow);
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: Georgia, "Times New Roman", serif;
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-serif);
+}
+
+/* The night sky behind the transparent canvas: deep at the top, a little lighter toward the horizon, with a faint
+   grain so the gradient doesn't band. The canvas draws stars, the moon, the land and the house over it. */
+.paper {
+  overscroll-behavior: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.8 0 0 0 0 0.8 0 0 0 0 0.9 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, var(--sky-top) 0%, #0d1434 45%, var(--sky-low) 100%);
+  background-attachment: fixed;
+}
+
+/* Words you can press: no boxes, a thin underline on hover and a clear focus ring for the keyboard. */
+.word {
+  cursor: pointer;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 150ms, color 150ms;
+}
+.word:hover,
+.word[aria-current="true"] {
+  color: var(--glow);
+  text-decoration-color: color-mix(in srgb, var(--glow) 60%, transparent);
+}
+.word:focus-visible {
+  outline: 1.5px solid color-mix(in srgb, var(--ink) 60%, transparent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.notebook {
+  animation: notebook-in 320ms ease-out;
+}
+@keyframes notebook-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@media (min-width: 900px) {
+  @keyframes notebook-in {
+    from {
+      opacity: 0;
+      transform: translateX(16px);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .notebook {
+    animation: none;
+  }
+}
